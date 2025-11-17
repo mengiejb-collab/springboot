@@ -33,3 +33,30 @@ pipeline {
         }
     }
 }
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Build') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+
+        stage('Archive JAR') {
+            steps {
+                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "🎉 SPRINGBOOT-PIPELINE: BUILD SUCCESS!"
+        }
+        failure {
+            echo "❌ SPRINGBOOT-PIPELINE: BUILD FAILED!"
+        }
+    }
+}
