@@ -60,3 +60,5 @@ pipeline {
         }
     }
 }
+
+sh 'mv clean package'
